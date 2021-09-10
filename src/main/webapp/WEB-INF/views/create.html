@@ -10,10 +10,10 @@
 </head>
 <body class="bg-light">
 <nav class="navbar navbar-dark bg-dark p-0">
-    <p class="navbar-brand ml-3 pb-0"
-       th:text="${#authentication.getPrincipal().getEmail() + ' with roles: '
-        + #strings.replace(#authentication.getPrincipal().getRoles(), 'ROLE_','').replaceAll('[\[\],]','')}">
-        Test user info
+    <p class="navbar-brand ml-3 pb-0">
+        <span class="font-weight-bold" th:text="${#authentication.getPrincipal().getEmail()}">Test</span>
+        <span> with roles: </span>
+        <span th:text="${#strings.replace(#authentication.getPrincipal().getRoles(), 'ROLE_','').replaceAll('[\[\],]','')}">role</span>
     </p>
     <p class="navbar-nav mr-3 mb-2">
         <a class="nav-link" href="/logout">Logout</a>
