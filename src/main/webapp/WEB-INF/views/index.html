@@ -8,10 +8,10 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
 </head>
-<body>
+<body class="bg-light">
 <nav class="navbar navbar-dark bg-dark p-0">
     <p class="navbar-brand ml-3 pb-0"
-        th:text="${#authentication.getPrincipal().getEmail() + ' with roles: '
+       th:text="${#authentication.getPrincipal().getEmail() + ' with roles: '
         + #strings.replace(#authentication.getPrincipal().getRoles(), 'ROLE_','').replaceAll('[\[\],]','')}">
         Test user info
     </p>
@@ -20,26 +20,74 @@
     </p>
 </nav>
 
-<table th:border="1">
-    <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Age</th>
-        <th>Email</th>
-        <th>Roles</th>
-        <th colspan="2">Action</th>
-    </tr>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.getName()}">name</td>
-        <td th:text="${user.getSurname()}">surname</td>
-        <td th:text="${user.getAge()}">age</td>
-        <td th:text="${user.getEmail()}">email</td>
-        <td th:text="${user.getRoles()}">roles</td>
 
-        <td><a th:href="@{/admin/users/{id}/edit(id=${user.getId()})}">Edit</a></td>
-        <td><a th:href="@{/admin/users/{id}(id=${user.getId()})}">Show</a></td>
-    </tr>
-</table>
+<div class="container-fluid mt-3 bg-white">
+    <div class="row">
+        <div class="col-2 vh-100">
+            <ul class="nav flex-column nav-pills mx-n3">
+                <li class="nav-item ">
+                    <a class="nav-link active" href="#">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">User</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-10 bg-light">
+            <h1>Admin panel</h1>
+            <ul class="nav nav-tabs">
+                <li class="nav-item ">
+                    <a class="nav-link active" href="#">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/users/new">New User</a>
+                </li>
+            </ul>
+
+            <div class="border bg-white">
+                <nav class="navbar bg-light h5 my-0 border-bottom">All users</nav>
+                <div class="px-4">
+                    <table class="table table-striped mt-4">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tr th:each="user, status : ${users}">
+                            <td th:text="${user.getName()}">name</td>
+                            <td th:text="${user.getSurname()}">surname</td>
+                            <td th:text="${user.getAge()}">age</td>
+                            <td th:text="${user.getEmail()}">email</td>
+                            <td th:text="${#strings.replace(user.getRoles(), 'ROLE_','').replaceAll('[\[\],]','')}">
+                                roles
+                            </td>
+
+                            <td>
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                        th:data-target="|#editUser${status.index}|">Edit
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                        th:data-target="|#deleteUser${status.index}|">Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <br>
 <form th:method="get" th:action="@{/admin/users/new}">
     <input type="submit" value="New User">
