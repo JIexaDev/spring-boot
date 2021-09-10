@@ -40,6 +40,7 @@ public class UserController {
     @GetMapping("/admin/users")
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("allRoles", roleService.getAllRoles());
         return "index";
     }
 
