@@ -24,9 +24,11 @@
     <div class="row">
         <div class="col-2 vh-100 mt-3">
             <ul class="nav flex-column nav-pills mx-n3">
-                <li class="nav-item ">
-                    <a class="nav-link" href="/admin/users">Admin</a>
-                </li>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/admin/users">Admin</a>
+                    </li>
+                </div>
                 <li class="nav-item">
                     <a class="nav-link active" href="#">User</a>
                 </li>
@@ -56,7 +58,9 @@
                             <td th:text="${user.getSurname()}">surname</td>
                             <td th:text="${user.getAge()}">age</td>
                             <td th:text="${user.getEmail()}">email</td>
-                            <td th:text="${#strings.replace(user.getRoles(), 'ROLE_', '').replaceAll('[\[\],]', '')}">roles</td>
+                            <td th:text="${#strings.replace(user.getRoles(), 'ROLE_', '').replaceAll('[\[\],]', '')}">
+                                roles
+                            </td>
                         </tr>
                     </table>
                 </div>
