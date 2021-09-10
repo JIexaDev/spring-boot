@@ -148,7 +148,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-bold mb-0" for="create_roles">Role</label>
-                                    <select multiple class="form-control" size="2" name="roles" id="create_roles">
+                                    <select multiple required class="form-control" size="2" name="roles" id="create_roles">
                                         <option th:each="role : ${allRoles}"
                                                 th:value="${role.id} +':'+ ${role.getName()}"
                                                 th:selected="${user.roles.contains(role)}"
