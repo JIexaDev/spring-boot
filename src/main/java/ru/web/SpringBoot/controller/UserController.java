@@ -12,8 +12,8 @@ import ru.web.SpringBoot.service.UserService;
 
 import javax.validation.Valid;
 
-@Controller
-@RequestMapping("/")
+//@Controller
+//@RequestMapping("/")
 public class UserController {
 
     final UserService userService;
